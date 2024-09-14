@@ -1,0 +1,72 @@
+attrs : 
+{
+    bcdUSB = 0x200;
+    bDeviceClass = 0x0;
+    bDeviceSubClass = 0x0;
+    bDeviceProtocol = 0x0;
+    bMaxPacketSize0 = 0x40;
+    idVendor = 0x0951;
+    idProduct = 0x1653;
+    bcdDevice = 0x1;
+};
+os_descs : 
+{
+    use = 0;
+    qw_sign = "";
+    b_vendor_code = 0x0;
+};
+strings = ( 
+    {
+        lang = 0x409;
+        manufacturer = "Foo Inc.";
+        product = "Bar Gadget";
+        serialnumber = "0123456789";
+    } );
+functions : 
+{
+    mass_storage_my_reader : 
+    {
+        instance = "my_reader";
+        type = "mass_storage";
+        attrs : 
+        {
+            stall = false;
+            luns = ( 
+                {
+                    cdrom = false;
+                    ro = false;
+                    nofua = false;
+                    removable = true;
+                    file = "/home/user/templates/mass.img";
+                }, 
+                {
+                    cdrom = true;
+                    ro = false;
+                    nofua = false;
+                    removable = true;
+                    file = "";
+                } );
+        };
+        os_descs = ( );
+    };
+};
+configs = ( 
+    {
+        id = 1;
+        name = "The only one";
+        attrs : 
+        {
+            bmAttributes = 0x80;
+            bMaxPower = 0x2;
+        };
+        strings = ( 
+            {
+                lang = 0x409;
+                configuration = "1xMass Storage";
+            } );
+        functions = ( 
+            {
+                name = "some_name_here";
+                function = "mass_storage_my_reader";
+            } );
+    } );

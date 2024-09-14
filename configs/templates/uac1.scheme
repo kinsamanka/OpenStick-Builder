@@ -1,0 +1,43 @@
+# UAC1 (USB Audio Class 1.0) Template
+
+attrs: 
+{
+    bcdUSB = 0x200;
+    bDeviceClass = 0x0;
+    bDeviceSubClass = 0x0;
+    bDeviceProtocol = 0x0;
+    bMaxPacketSize0 = 0x40;
+    idVendor = 0x1D6B;  # Vendor ID (change as needed)
+    idProduct = 0x104;  # Product ID (change as needed)
+    bcdDevice = 0x1;
+};
+
+strings = ( 
+    {
+        lang = 0x409;
+        manufacturer = "Foo Inc.";
+        product = "Bar Gadget";
+        serialnumber = "0123456789";
+    }
+);
+
+functions: 
+{
+    uac1_usb0: 
+    {
+        instance = "usb0";
+        type = "uac1";
+        attrs: 
+        {
+            c_chmask = 3;
+            c_srate = 44100;
+            c_ssize = 2;
+            p_chmask = 3;
+            p_srate = 44100;
+            p_ssize = 2;
+            function_name = "Source/Sink";
+        };
+    };
+};
+
+configs = ( );

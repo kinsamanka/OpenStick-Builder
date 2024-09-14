@@ -1,0 +1,65 @@
+attrs : 
+{
+    bcdUSB = 0x200;
+    bDeviceClass = 0x0;
+    bDeviceSubClass = 0x0;
+    bDeviceProtocol = 0x0;
+    bMaxPacketSize0 = 0x40;
+    idVendor = 0x413C;
+    idProduct = 0x4503;
+    bcdDevice = 0x1;
+};
+os_descs : 
+{
+    use = 0;
+    qw_sign = "";
+    b_vendor_code = 0x0;
+};
+strings = ( 
+    {
+        lang = 0x409;
+        manufacturer = "Foo Inc.";
+        product = "Bar Gadget";
+        serialnumber = "0123456789";
+    } );
+functions : 
+{
+    hid_usb0 : 
+    {
+        instance = "usb0";
+        type = "hid";
+        attrs : 
+        {
+            dev : 
+            {
+                major = 241;
+                minor = 0;
+            };
+            protocol = 1;
+            report_desc = ( 0x5, 0x1, 0x9, 0x6, 0xA1, 0x1, 0x5, 0x7, 0x19, 0xE0, 0x29, 0xE7, 0x15, 0x0, 0x25, 0x1, 0x75, 0x1, 0x95, 0x8, 0x81, 0x2, 0x95, 0x1, 0x75, 0x8, 0x81, 0x3, 0x95, 0x5, 0x75, 0x1, 0x5, 0x8, 0x19, 0x1, 0x29, 0x5, 0x91, 0x2, 0x95, 0x1, 0x75, 0x3, 0x91, 0x3, 0x95, 0x6, 0x75, 0x8, 0x15, 0x0, 0x25, 0x65, 0x5, 0x7, 0x19, 0x0, 0x29, 0x65, 0x81, 0x0, 0xC0 );
+            report_length = 8;
+            subclass = 0;
+        };
+        os_descs = ( );
+    };
+};
+configs = ( 
+    {
+        id = 1;
+        name = "The only one";
+        attrs : 
+        {
+            bmAttributes = 0x80;
+            bMaxPower = 0x2;
+        };
+        strings = ( 
+            {
+                lang = 0x409;
+                configuration = "1xHID";
+            } );
+        functions = ( 
+            {
+                name = "some_name";
+                function = "hid_usb0";
+            } );
+    } );

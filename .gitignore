@@ -1,0 +1,10 @@
+*.raw
+*.bin
+*.zip
+*.mbn
+*.tgz
+build
+dist
+files
+mnt
+rootfs

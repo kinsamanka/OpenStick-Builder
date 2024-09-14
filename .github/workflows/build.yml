@@ -1,0 +1,34 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Install dependencies
+        run: sudo sh -e scripts/install_deps.sh
+
+      - name: Build hyp and aboot firmware
+        run: sudo sh -e scripts/build_hyp_aboot.sh
+
+      - name: Extract MSM8916 firmware
+        run: sudo sh -e scripts/extract_fw.sh
+
+      - name: Create rootfs
+        run: sudo sh -e scripts/alpine_rootfs.sh
+
+      - name: Create images
+        run: sudo sh -e scripts/build_images.sh
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: openstick-alpine
+          path: files/*

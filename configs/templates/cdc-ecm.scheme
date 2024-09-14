@@ -1,0 +1,65 @@
+# Ethernet (CDC/ECM) OS Descriptor Template
+
+attrs:
+{
+    bcdUSB = 0x200;
+    bDeviceClass = 0x0;
+    bDeviceSubClass = 0x0;
+    bDeviceProtocol = 0x0;
+    bMaxPacketSize0 = 0x40;
+    idVendor = 0x1D6B;
+    idProduct = 0x104;
+    bcdDevice = 0x1;
+};
+
+os_descs:
+{
+    use = 0;
+    qw_sign = "";
+    b_vendor_code = 0x0;
+};
+
+strings = ( 
+    {
+        lang = 0x409;
+        manufacturer = "Your Manufacturer";
+        product = "Your Ethernet Gadget";
+        serialnumber = "123456789";
+    } );
+
+functions: 
+{
+    ecm_usb0: 
+    {
+        instance = "usb0";
+        type = "ecm";
+        attrs: 
+        {
+            dev_addr = "8a:b1:27:16:8e:a7";
+            host_addr = "2a:85:da:41:eb:f9";
+            qmult = 5;
+        };
+        os_descs = ( );
+    };
+};
+
+configs = ( 
+    {
+        id = 1;
+        name = "The only one";
+        attrs: 
+        {
+            bmAttributes = 0x80;
+            bMaxPower = 0x2;
+        };
+        strings = ( 
+            {
+                lang = 0x409;
+                configuration = "1xECM";
+            } );
+        functions = ( 
+            {
+                name = "ecm_usb0";
+                function = "ecm_usb0";
+            } );
+    } );

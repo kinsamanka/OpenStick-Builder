@@ -1,0 +1,66 @@
+# MIDI OS Descriptor Template
+
+attrs: 
+{
+    bcdUSB = 0x200;
+    bDeviceClass = 0x0;
+    bDeviceSubClass = 0x0;
+    bDeviceProtocol = 0x0;
+    bMaxPacketSize0 = 0x40;
+    idVendor = 0x1D6B;
+    idProduct = 0x104;
+    bcdDevice = 0x1;
+};
+
+os_descs: 
+{
+    use = 0;
+    qw_sign = "";
+    b_vendor_code = 0x0;
+};
+
+strings = ( 
+    {
+        lang = 0x409;
+        manufacturer = "Foo Inc.";
+        product = "Bar Gadget";
+        serialnumber = "0123456789";
+    } );
+
+functions: 
+{
+    midi_usb0: 
+    {
+        instance = "usb0";
+        type = "midi";
+        attrs: 
+        {
+            out_cable = 0;
+            in_cable = 1;
+            out_jack = 0x01;
+            in_jack = 0x02;
+        };
+        os_descs = ( );
+    };
+};
+
+configs = ( 
+    {
+        id = 1;
+        name = "The only one";
+        attrs: 
+        {
+            bmAttributes = 0x80;
+            bMaxPower = 0x2;
+        };
+        strings = ( 
+            {
+                lang = 0x409;
+                configuration = "1xMIDI";
+            } );
+        functions = ( 
+            {
+                name = "some_name";
+                function = "midi_usb0";
+            } );
+    } );

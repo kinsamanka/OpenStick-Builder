@@ -1,0 +1,10 @@
+[submodule "src/lk2nd"]
+	path = src/lk2nd
+	url = https://github.com/msm8916-mainline/lk2nd.git
+	ignore = dirty
+[submodule "src/qtestsign"]
+	path = src/qtestsign
+	url = https://github.com/msm8916-mainline/qtestsign.git
+[submodule "src/qhypstub"]
+	path = src/qhypstub
+	url = https://github.com/msm8916-mainline/qhypstub.git

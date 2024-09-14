@@ -1,0 +1,177 @@
+attrs :
+{
+  bcdUSB = 0x0200;
+  bDeviceClass = 0xef; # 0x00
+  bDeviceSubClass = 0x02; # 0x00
+  bDeviceProtocol = 0x01; # 0x00
+  bMaxPacketSize0 = 0x08; # 0x00
+  idVendor = 0x1d6b; # Linux Foundation
+  idProduct = 0x0104; # Multifunction composite gadget
+  bcdDevice = 0x0419; # 0x0100
+};
+os_descs :
+{
+  use = 1;
+  qw_sign = "MSFT100";
+  b_vendor_code = 0xcd;
+};
+strings = (
+  {
+    lang = 0x409;
+    manufacturer = "OpenBMC";
+    product = "virtual_input";
+    serialnumber = "OBMC0001";
+  }
+);
+
+functions :
+{
+
+  storage :
+{
+  instance = "0";
+  type = "mass_storage";
+  attrs :
+  {
+    stall = false;
+    luns = (
+      { # storage 0
+        #ro = true;
+        removable = true;
+        #cdrom = true;
+      }
+    );
+  };
+};
+
+  keyboard :
+{
+  instance = "0";
+  type = "hid";
+  attrs :
+  {
+    subclass = 0x01;
+    protocol = 0x01; # keyboard
+    report_length = 8;
+    report_desc = (
+      # Binary HID keyboard descriptor
+      0x05, 0x01, # USAGE_PAGE (Generic Desktop)
+      0x09, 0x06, # USAGE (Keyboard)
+      0xa1, 0x01, # COLLECTION (Application)
+      0x05, 0x07, #   USAGE_PAGE (Keyboard)
+      0x19, 0xe0, #   USAGE_MINIMUM (Keyboard LeftControl)
+      0x29, 0xe7, #   USAGE_MAXIMUM (Keyboard Right GUI)
+      0x15, 0x00, #   LOGICAL_MINIMUM (0)
+      0x25, 0x01, #   LOGICAL_MAXIMUM (1)
+      0x75, 0x01, #   REPORT_SIZE (1)
+      0x95, 0x08, #   REPORT_COUNT (8)
+      0x81, 0x02, #   INPUT (Data,Var,Abs)
+      0x95, 0x01, #   REPORT_COUNT (1)
+      0x75, 0x08, #   REPORT_SIZE (8)
+      0x81, 0x03, #   INPUT (Data,Var,Abs)
+      0x95, 0x05, #   REPORT_COUNT (5)
+      0x75, 0x01, #   REPORT_SIZE (1)
+      0x05, 0x08, #   USAGE_PAGE (LEDs)
+      0x19, 0x01, #   USAGE_MINIMUM (Num Lock)
+      0x29, 0x05, #   USAGE_MAXIMUM (Kana)
+      0x91, 0x02, #   OUTPUT (Data,Var,Abs)
+      0x95, 0x01, #   REPORT_COUNT (1)
+      0x75, 0x03, #   REPORT_SIZE (3)
+      0x91, 0x03, #   OUTPUT (Cnst,Var,Abs)
+      0x95, 0x06, #   REPORT_COUNT (6)
+      0x75, 0x08, #   REPORT_SIZE (8)
+      0x15, 0x00, #   LOGICAL_MINIMUM (0)
+      0x25, 0x65, #   LOGICAL_MAXIMUM (101)
+      0x05, 0x07, #   USAGE_PAGE (Keyboard)
+      0x19, 0x00, #   USAGE_MINIMUM (Reserved (no event indicated))
+      0x29, 0x65, #   USAGE_MAXIMUM (Keyboard Application)
+      0x81, 0x00, #   INPUT (Data,Ary,Abs)
+      0xc0        # END_COLLECTION
+    );
+  };
+};
+
+  pointer :
+{
+  instance = "1";
+  type = "hid";
+  attrs :
+  {
+    subclass = 0x01;
+    protocol = 0x02; # mouse
+    report_length = 6;
+    report_desc = (
+      # Binary HID mouse descriptor (absolute coordinate)
+      0x05, 0x01,       # USAGE_PAGE (Generic Desktop)
+      0x09, 0x02,       # USAGE (Mouse)
+      0xa1, 0x01,       # COLLECTION (Application)
+      0x09, 0x01,       #   USAGE (Pointer)
+      0xa1, 0x00,       #   COLLECTION (Physical)
+      0x05, 0x09,       #     USAGE_PAGE (Button)
+      0x19, 0x01,       #     USAGE_MINIMUM (Button 1)
+      0x29, 0x03,       #     USAGE_MAXIMUM (Button 3)
+      0x15, 0x00,       #     LOGICAL_MINIMUM (0)
+      0x25, 0x01,       #     LOGICAL_MAXIMUM (1)
+      0x95, 0x03,       #     REPORT_COUNT (3)
+      0x75, 0x01,       #     REPORT_SIZE (1)
+      0x81, 0x02,       #     INPUT (Data,Var,Abs)
+      0x95, 0x01,       #     REPORT_COUNT (1)
+      0x75, 0x05,       #     REPORT_SIZE (5)
+      0x81, 0x03,       #     INPUT (Cnst,Var,Abs)
+      0x05, 0x01,       #     USAGE_PAGE (Generic Desktop)
+      0x09, 0x30,       #     USAGE (X)
+      0x09, 0x31,       #     USAGE (Y)
+      0x35, 0x00,       #     PHYSICAL_MINIMUM (0)
+      0x46, 0xff, 0x7f, #     PHYSICAL_MAXIMUM (32767)
+      0x15, 0x00,       #     LOGICAL_MINIMUM (0)
+      0x26, 0xff, 0x7f, #     LOGICAL_MAXIMUM (32767)
+      0x65, 0x11,       #     UNIT (SI Lin:Distance)
+      0x55, 0x00,       #     UNIT_EXPONENT (0)
+      0x75, 0x10,       #     REPORT_SIZE (16)
+      0x95, 0x02,       #     REPORT_COUNT (2)
+      0x81, 0x02,       #     INPUT (Data,Var,Abs)
+      0x09, 0x38,       #     Usage (Wheel)
+      0x15, 0xff,       #     LOGICAL_MINIMUM (-1)
+      0x25, 0x01,       #     LOGICAL_MAXIMUM (1)
+      0x35, 0x00,       #     PHYSICAL_MINIMUM (-127)
+      0x45, 0x00,       #     PHYSICAL_MAXIMUM (127)
+      0x75, 0x08,       #     REPORT_SIZE (8)
+      0x95, 0x01,       #     REPORT_COUNT (1)
+      0x81, 0x06,       #     INPUT (Data,Var,Rel)
+      0xc0,             #   END_COLLECTION
+      0xc0              # END_COLLECTION
+    );
+  };
+};
+};
+configs = (
+  {
+    id = 1;
+    name = "c";
+    attrs :
+    {
+      bmAttributes = 0xe0;
+      bMaxPower = 500; # 1A (in 2mA units)
+    };
+    strings = (
+      {
+        lang = 0x409;
+        configuration = "Main config";
+      }
+    );
+    functions = (
+      {
+        name = "mass_storage.0";
+        function = "storage";
+      },
+      {
+        name = "hid.0";
+        function = "keyboard";
+      },
+      {
+        name = "hid.1";
+        function = "pointer";
+      }
+    );
+  }
+);
