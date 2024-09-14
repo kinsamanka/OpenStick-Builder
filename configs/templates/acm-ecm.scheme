@@ -1,0 +1,85 @@
+attrs : 
+{
+    bcdUSB = 0x200;
+    bDeviceClass = 0x0;
+    bDeviceSubClass = 0x0;
+    bDeviceProtocol = 0x0;
+    bMaxPacketSize0 = 0x40;
+    idVendor = 0x1D6B;
+    idProduct = 0x104;
+    bcdDevice = 0x1;
+};
+os_descs : 
+{
+    use = 0;
+    qw_sign = "";
+    b_vendor_code = 0x0;
+};
+strings = ( 
+    {
+        lang = 0x409;
+        manufacturer = "Foo Inc.";
+        product = "Bar Gadget";
+        serialnumber = "0123456789";
+    } );
+functions : 
+{
+    acm_usb0 : 
+    {
+        instance = "usb0";
+        type = "acm";
+        attrs : 
+        {
+        };
+        os_descs = ( );
+    };
+    acm_usb1 : 
+    {
+        instance = "usb1";
+        type = "acm";
+        attrs : 
+        {
+        };
+        os_descs = ( );
+    };
+    ecm_usb0 : 
+    {
+        instance = "usb0";
+        type = "ecm";
+        attrs : 
+        {
+            dev_addr = "96:db:2c:02:3e:a3";
+            host_addr = "ea:d5:72:e2:48:89";
+            qmult = 5;
+        };
+        os_descs = ( );
+    };
+};
+configs = ( 
+    {
+        id = 1;
+        name = "The only one";
+        attrs : 
+        {
+            bmAttributes = 0x80;
+            bMaxPower = 0x2;
+        };
+        strings = ( 
+            {
+                lang = 0x409;
+                configuration = "CDC 2xACM+ECM";
+            } );
+        functions = ( 
+            {
+                name = "acm.GS0";
+                function = "acm_usb0";
+            }, 
+            {
+                name = "acm.GS1";
+                function = "acm_usb1";
+            }, 
+            {
+                name = "ecm.usb0";
+                function = "ecm_usb0";
+            } );
+    } );

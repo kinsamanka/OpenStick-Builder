@@ -1,0 +1,15 @@
+[submodule "src/lk2nd"]
+	path = src/lk2nd
+	url = https://github.com/msm8916-mainline/lk2nd.git
+[submodule "src/qtestsign"]
+	path = src/qtestsign
+	url = https://github.com/msm8916-mainline/qtestsign.git
+[submodule "src/qhypstub"]
+	path = src/qhypstub
+	url = https://github.com/msm8916-mainline/qhypstub.git
+[submodule "src/gt"]
+	path = src/gt
+	url = https://github.com/linux-usb-gadgets/gt
+[submodule "src/libusbgx"]
+	path = src/libusbgx
+	url = https://github.com/linux-usb-gadgets/libusbgx

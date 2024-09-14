@@ -1,0 +1,69 @@
+attrs : 
+{
+    bcdUSB = 0x200;
+    bDeviceClass = 0x0;
+    bDeviceSubClass = 0x0;
+    bDeviceProtocol = 0x0;
+    bMaxPacketSize0 = 0x40;
+    idVendor = 0x1D6B;
+    idProduct = 0x104;
+    bcdDevice = 0x1;
+};
+os_descs : 
+{
+    use = 0;
+    qw_sign = "";
+    b_vendor_code = 0x0;
+};
+strings = ( 
+    {
+        lang = 0x409;
+        manufacturer = "Foo Inc.";
+        product = "Bar Gadget";
+        serialnumber = "0123456789";
+    } );
+functions : 
+{
+    ffs_my_dev_name : 
+    {
+        instance = "my_dev_name";
+        type = "ffs";
+        attrs : 
+        {
+        };
+        os_descs = ( );
+    };
+    ffs_my_other_dev_name : 
+    {
+        instance = "my_other_dev_name";
+        type = "ffs";
+        attrs : 
+        {
+        };
+        os_descs = ( );
+    };
+};
+configs = ( 
+    {
+        id = 1;
+        name = "The only one";
+        attrs : 
+        {
+            bmAttributes = 0x80;
+            bMaxPower = 0x2;
+        };
+        strings = ( 
+            {
+                lang = 0x409;
+                configuration = "2xFFS";
+            } );
+        functions = ( 
+            {
+                name = "some_name_here";
+                function = "ffs_my_dev_name";
+            }, 
+            {
+                name = "some_name_here_too";
+                function = "ffs_my_other_dev_name";
+            } );
+    } );

@@ -1,0 +1,17 @@
+[connection]
+id=lte
+uuid=1a84c1e6-6688-4be5-b05a-4ceee414f8ed
+type=gsm
+interface-name=wwan0qmi0
+
+[gsm]
+apn=internet
+
+[ipv4]
+method=auto
+
+[ipv6]
+addr-gen-mode=default
+method=auto
+
+[proxy]

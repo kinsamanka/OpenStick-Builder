@@ -1,0 +1,146 @@
+attrs : 
+{
+    bcdUSB = 0x200;
+    bDeviceClass = 0x0;
+    bDeviceSubClass = 0x0;
+    bDeviceProtocol = 0x0;
+    bMaxPacketSize0 = 0x40;
+    idVendor = 0x1D6B;
+    idProduct = 0x104;
+    bcdDevice = 0x1;
+};
+os_descs : 
+{
+    use = 0;
+    qw_sign = "";
+    b_vendor_code = 0x0;
+};
+strings = ( 
+    {
+        lang = 0x409;
+        manufacturer = "Foo Inc.";
+        product = "Bar Gadget";
+        serialnumber = "0123456789";
+    } );
+functions : 
+{
+    uvc_uvc : 
+    {
+        instance = "uvc";
+        type = "uvc";
+        attrs : 
+        {
+            formats : 
+            {
+                mjpeg : 
+                {
+                    frames = ( 
+                        {
+                        }, 
+                        {
+                            bFrameIndex = 1;
+                            bmCapabilities = 0;
+                            dwMinBitRate = 18432000;
+                            dwMaxBitRate = 55296000;
+                            dwMaxVideoFrameBufferSize = 307200;
+                            dwDefaultFrameInterval = 666666;
+                            dwFrameInterval = 2000000;
+                            wHeight = 480;
+                            wWidth = 640;
+                        }, 
+                        {
+                            bFrameIndex = 2;
+                            bmCapabilities = 0;
+                            dwMinBitRate = 18432000;
+                            dwMaxBitRate = 55296000;
+                            dwMaxVideoFrameBufferSize = 2073600;
+                            dwDefaultFrameInterval = 666666;
+                            dwFrameInterval = 2000000;
+                            wHeight = 1080;
+                            wWidth = 1920;
+                        }, 
+                        {
+                            bFrameIndex = 3;
+                            bmCapabilities = 0;
+                            dwMinBitRate = 18432000;
+                            dwMaxBitRate = 55296000;
+                            dwMaxVideoFrameBufferSize = 2073600;
+                            dwDefaultFrameInterval = 666666;
+                            dwFrameInterval = 333333;
+                            wHeight = 1080;
+                            wWidth = 1920;
+                        } );
+                    bmaControls = 0;
+                };
+                uncompressed : 
+                {
+                    frames = ( 
+                        {
+                        }, 
+                        {
+                            bFrameIndex = 1;
+                            bmCapabilities = 0;
+                            dwMinBitRate = 18432000;
+                            dwMaxBitRate = 55296000;
+                            dwMaxVideoFrameBufferSize = 307200;
+                            dwDefaultFrameInterval = 666666;
+                            dwFrameInterval = 2000000;
+                            wHeight = 480;
+                            wWidth = 640;
+                        }, 
+                        {
+                            bFrameIndex = 2;
+                            bmCapabilities = 0;
+                            dwMinBitRate = 18432000;
+                            dwMaxBitRate = 55296000;
+                            dwMaxVideoFrameBufferSize = 2073600;
+                            dwDefaultFrameInterval = 666666;
+                            dwFrameInterval = 2000000;
+                            wHeight = 1080;
+                            wWidth = 1920;
+                        }, 
+                        {
+                            bFrameIndex = 3;
+                            bmCapabilities = 0;
+                            dwMinBitRate = 18432000;
+                            dwMaxBitRate = 55296000;
+                            dwMaxVideoFrameBufferSize = 2073600;
+                            dwDefaultFrameInterval = 666666;
+                            dwFrameInterval = 333333;
+                            wHeight = 1080;
+                            wWidth = 1920;
+                        } );
+                    bmaControls = 0;
+                };
+            };
+            config : 
+            {
+                streaming_maxburst = 0;
+                streaming_maxpacket = 1024;
+                streaming_interval = 1;
+                function_name = "UVC Camera";
+            };
+        };
+        os_descs = ( );
+    };
+};
+configs = ( 
+    {
+        id = 1;
+        name = "The only one";
+        attrs : 
+        {
+            bmAttributes = 0x80;
+            bMaxPower = 0x2;
+        };
+        strings = ( 
+            {
+                lang = 0x409;
+                configuration = "UVC";
+            } );
+        functions = ( 
+            {
+                name = "uvc.cam";
+                function = "uvc_uvc";
+            } );
+    } );

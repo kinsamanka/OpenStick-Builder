@@ -1,0 +1,10 @@
+SUBSYSTEM!="net", GOTO="nm_unmanaged_end"
+
+ACTION!="add|change|move", GOTO="nm_unmanaged_end"
+ENV{INTERFACE}=="vboxnet[0-9]*", ENV{NM_UNMANAGED}="1"
+ATTR{address}=="00:50:56:*", ENV{INTERFACE}=="vmnet[0-9]*", ENV{NM_UNMANAGED}="1"
+ATTR{address}=="00:1c:42:*", ENV{INTERFACE}=="vnic[0-9]*", ENV{NM_UNMANAGED}="1"
+ENV{ID_NET_DRIVER}=="veth", ENV{INTERFACE}!="eth[0-9]*", ENV{NM_UNMANAGED}="1"
+ENV{DEVTYPE}=="gadget", ENV{NM_UNMANAGED}="0"
+
+LABEL="nm_unmanaged_end"

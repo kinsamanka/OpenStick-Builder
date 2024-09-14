@@ -1,0 +1,65 @@
+attrs : 
+{
+    bcdUSB = 0x200;
+    bDeviceClass = 0x0;
+    bDeviceSubClass = 0x0;
+    bDeviceProtocol = 0x0;
+    bMaxPacketSize0 = 0x40;
+    idVendor = 0x1D6B;
+    idProduct = 0x104;
+    bcdDevice = 0x1;
+};
+os_descs : 
+{
+    config_id = 1;
+    use = 1;
+    qw_sign = "MSFT100";
+    b_vendor_code = 0xBC;
+};
+strings = ( 
+    {
+        lang = 0x409;
+        manufacturer = "Foo Inc.";
+        product = "Bar Gadget";
+        serialnumber = "0123456789";
+    } );
+functions : 
+{
+    rndis_usb0 : 
+    {
+        instance = "usb0";
+        type = "rndis";
+        attrs : 
+        {
+            dev_addr = "8a:b1:27:16:8e:a7";
+            host_addr = "2a:85:da:41:eb:f9";
+            qmult = 5;
+        };
+        os_descs = ( 
+            {
+                interface = "rndis";
+                compatible_id = "RNDIS";
+                sub_compatible_id = "5162001";
+            } );
+    };
+};
+configs = ( 
+    {
+        id = 1;
+        name = "The only one";
+        attrs : 
+        {
+            bmAttributes = 0x80;
+            bMaxPower = 0x2;
+        };
+        strings = ( 
+            {
+                lang = 0x409;
+                configuration = "RNDIS";
+            } );
+        functions = ( 
+            {
+                name = "rndis.usb0";
+                function = "rndis_usb0";
+            } );
+    } );
