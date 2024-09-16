@@ -2,7 +2,7 @@
 
 CHROOT=${CHROOT=$(pwd)/rootfs}
 RELEASE=${RELEASE=stable}
-HOSTNAME=${HOSTNAME=openstick-debian}
+HOST_NAME=${HOST_NAME=openstick-debian}
 
 rm -rf ${CHROOT}
 
@@ -36,8 +36,8 @@ done;
 rm -f ${CHROOT}/setup.sh
 echo -n > ${CHROOT}/root/.bash_history
 
-echo ${HOSTNAME} > ${CHROOT}/etc/hostname
-sed -i "/localhost/ s/$/ ${HOSTNAME}/" ${CHROOT}/etc/hosts
+echo ${HOST_NAME} > ${CHROOT}/etc/hostname
+sed -i "/localhost/ s/$/ ${HOST_NAME}/" ${CHROOT}/etc/hosts
 
 # setup systemd services
 cp -a configs/system/* ${CHROOT}/etc/systemd/system
