@@ -47,10 +47,12 @@ cp -a scripts/msm-firmware-loader.sh ${CHROOT}/usr/sbin
 # setup NetworkManager
 cp configs/*.nmconnection ${CHROOT}/etc/NetworkManager/system-connections
 chmod 0600 ${CHROOT}/etc/NetworkManager/system-connections/*
-sed -i '/plugins/a dns=dnsmasq' ${CHROOT}/etc/NetworkManager/NetworkManager.conf
+sed -i '/\[main\]/a dns=dnsmasq' ${CHROOT}/etc/NetworkManager/NetworkManager.conf
 
 # enable autoconnect for usb0
-cp configs/udev/* ${CHROOT}/etc/udev/rules.d/
+cat << EOF > ${CHROOT}/etc/udev/rules.d/99-nm-usb0.rules
+SUBSYSTEM=="net", ACTION=="add|change|move", ENV{DEVTYPE}=="gadget", ENV{NM_UNMANAGED}="0"
+EOF
 
 # install kernel
 wget -O - http://mirror.postmarketos.org/postmarketos/v24.06/aarch64/linux-postmarketos-qcom-msm8916-6.6-r5.apk \
