@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 echo "Install dependencies\n"
 scripts/install_deps.sh

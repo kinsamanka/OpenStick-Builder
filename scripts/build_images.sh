@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 CHROOT=${CHROOT=$(pwd)/rootfs}
 
