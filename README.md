@@ -113,7 +113,6 @@ Edit [`scripts/setup.sh`](scripts/setup.sh) to add/remove packages. Note that th
   fastboot flash rpm rpm.mbn
   fastboot flash sbl1 sbl1.mbn
   fastboot flash tz tz.mbn
-  fastboot flash cdt sbc_1.0_8016.bin
   fastboot flash boot boot.bin
   fastboot flash rootfs rootfs.bin
   ```
