@@ -156,6 +156,7 @@ Edit [`scripts/setup.sh`](scripts/setup.sh) to add/remove packages. Note that th
      - `thwc-uf896` for **UF896** boards
      - `thwc-ufi001c` for **UFIxxx** boards
      - `jz01-45-v33` for **JZxxx** boards
+     - `fy-mf800` for **MF800** boards
 
 - To maximize the `rootfs` partition
   ```shell
