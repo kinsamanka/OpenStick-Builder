@@ -4,6 +4,34 @@ CHROOT=${CHROOT=$(pwd)/rootfs}
 RELEASE=${RELEASE=stable}
 HOST_NAME=${HOST_NAME=openstick-debian}
 
+# Check if BOARD_TYPE is passed as the first argument
+if [ -z "$1" ]; then
+    echo "Error: Please provide BOARD_TYPE as the first argument (e.g., yiming-uz801v3, thwc-uf896, thwc-ufi001c, jz01-45-v33)"
+    exit 1
+else
+    BOARD_TYPE="$1"
+fi
+
+# Select BOARD_NAME based on BOARD_TYPE
+case $BOARD_TYPE in
+    yiming-uz801v3)
+        BOARD_NAME="yiming-uz801v3"
+        ;;
+    thwc-uf896)
+        BOARD_NAME="thwc-uf896"
+        ;;
+    thwc-ufi001c)
+        BOARD_NAME="thwc-ufi001c"
+        ;;
+    jz01-45-v33)
+        BOARD_NAME="jz01-45-v33"
+        ;;
+    *)
+        echo "Error: Invalid BOARD_TYPE. Use 'yiming-uz801v3', 'thwc-uf896', 'thwc-ufi001c', or 'jz01-45-v33'."
+        exit 1
+        ;;
+esac
+
 rm -rf ${CHROOT}
 
 debootstrap --foreign --arch arm64 \
@@ -60,6 +88,9 @@ wget -O - http://mirror.postmarketos.org/postmarketos/v24.06/aarch64/linux-postm
 
 mkdir -p ${CHROOT}/boot/extlinux
 cp configs/extlinux.conf ${CHROOT}/boot/extlinux
+
+# Replace <BOARD> in extlinux.conf with BOARD_NAME
+sed -i "s/<BOARD>/${BOARD_NAME}/" ${CHROOT}/boot/extlinux/extlinux.conf
 
 # copy custom dtb's
 cp dtbs/* ${CHROOT}/boot/dtbs/qcom
