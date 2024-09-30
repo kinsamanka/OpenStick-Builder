@@ -7,20 +7,55 @@ This builder uses the precompiled [kernel](https://pkgs.postmarketos.org/package
 > This branch generates an `alpine` image, use the [main branch](https://github.com/kinsamanka/OpenStick-Builder/tree/main) for a `debian` image.
 
 ## Build Instructions
-### Using Github Actions
+### Build locally
+This has been tested to work on **Ubuntu 22.04**
+- clone
+  ```shell
+  git clone -b alpine --recurse-submodules https://github.com/kinsamanka/OpenStick-Builder.git
+  cd OpenStick-Builder/
+  ```
+#### Quick
+- build
+  ```shell
+  cd OpenStick-Builder/
+  sudo ./build.sh
+  ```
+#### Detailed
+- install dependencies
+  ```shell
+  sudo scripts/install_deps.sh
+  ```
+- build hyp and lk2nd
+
+  these custom bootloader allows basic support for `extlinux.conf` file, similar to u-boot and depthcharge.
+  ```shell
+  sudo scripts/build_hyp_aboot.sh
+  ```
+- extract Qualcomm firmware
+
+  extracts the bootloader and creates a new partition table that utilizes the full emmc space
+  ```shell
+  sudo scripts/extract_fw.sh
+  ```
+- create rootfs
+  ```shell
+  sudo scripts/alpine_rootfs.sh
+  ```
+- create images
+  ```shell
+  sudo scripts/build_images.sh
+  ```
+
+The generated firmware files will be stored under the `files` directory
+
+### On the cloud using Github Actions
 1. Fork this repo
 2. Run the [Build workflow](../../actions/workflows/build.yml)
    - click and run ***Run workflow***
    - once the workflow is done, click on the workflow summary and then download the resulting artifact
 
-### Local
-This is tested to work on **Ubuntu 22.04**
-```shell
-git clone -b alpine --recurse-submodules https://github.com/kinsamanka/OpenStick-Builder.git
-cd OpenStick-Builder/
-sudo ./build.sh
-```
-The generated firmware files will be stored under the `files` directory
+## Customizations
+Edit [`scripts/alpine_rootfs.sh`](scripts/alpine_rootfs.sh#L33) to add/remove packages.
 
 ## Firmware Installation
 > [!WARNING]  
