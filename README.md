@@ -108,7 +108,6 @@ Edit [`scripts/alpine_rootfs.sh`](scripts/alpine_rootfs.sh#L33) to add/remove pa
   fastboot flash rpm rpm.mbn
   fastboot flash sbl1 sbl1.mbn
   fastboot flash tz tz.mbn
-  fastboot flash cdt sbc_1.0_8016.bin
   fastboot flash boot boot.bin
   fastboot flash rootfs alpine_rootfs.bin
   ```
@@ -152,6 +151,7 @@ Edit [`scripts/alpine_rootfs.sh`](scripts/alpine_rootfs.sh#L33) to add/remove pa
      - `thwc-uf896` for **UF896** boards
      - `thwc-ufi001c` for **UFIxxx** boards
      - `jz01-45-v33` for **JZxxx** boards
+     - `fy-mf800` for **MF800** boards
 
 - To maximize the `rootfs` partition
   ```shell
