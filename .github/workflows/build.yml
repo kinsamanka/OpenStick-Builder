@@ -9,16 +9,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: true
 
       - name: Install dependencies
         run: sudo sh -e scripts/install_deps.sh
 
-      - name: Build hyp and aboot firmware
-        run: sudo sh -e scripts/build_hyp_aboot.sh
-
-      - name: Extract MSM8916 firmware
+      - name: Copy prebuilt firmware
         run: sudo sh -e scripts/extract_fw.sh
 
       - name: Create rootfs
@@ -30,5 +25,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: openstick-alpine
+          name: jsbsbxjxh66
           path: files/*

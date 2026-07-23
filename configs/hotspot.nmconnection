@@ -14,7 +14,7 @@ group=ccmp;
 key-mgmt=wpa-psk
 pairwise=ccmp;
 proto=rsn;
-psk=openstick
+psk=12345678
 
 [ipv4]
 address1=192.168.4.1/24

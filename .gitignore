@@ -9,3 +9,4 @@ files
 mnt
 rootfs
 apk.static
+!prebuilt/**
