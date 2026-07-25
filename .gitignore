@@ -9,3 +9,8 @@ files
 mnt
 rootfs
 apk.static
+
+# Allow prebuilt firmware files
+!prebuilt/**/*.bin
+!prebuilt/**/*.mbn
+!prebuilt/**/*.img
