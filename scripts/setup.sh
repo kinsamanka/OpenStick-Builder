@@ -15,13 +15,11 @@ apt autoremove -qqy
 apt install -qqy --no-install-recommends \
     bridge-utils \
     dnsmasq \
-    hostapd \
     iptables \
     libconfig9 \
     locales \
     modemmanager \
     netcat-traditional \
-    net-tools \
     network-manager \
     openssh-server \
     qrtr-tools \
@@ -30,11 +28,62 @@ apt install -qqy --no-install-recommends \
     systemd-timesyncd \
     tzdata \
     wireguard-tools \
-    wpasupplicant
+    wpasupplicant \
+    bash-completion \
+    curl \
+    ca-certificates \
+    zram-tools \
+    bc \
+    ifupdown2 \
+    mobile-broadband-provider-info
+
+# Cleanup
 apt clean
 rm -rf /var/lib/apt/lists/*
+rm /etc/machine-id
+rm /var/lib/dbus/machine-id
+rm /etc/ssh/ssh_host_*
+find /var/log -type f -delete
 
-passwd -d root
+passwd -dl root
 
-echo user:1::::/home/user:/bin/bash | newusers
-echo 'user ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/user
+# Add user
+adduser --disabled-password --comment "" user
+# Set password
+passwd user << EOD
+1
+1
+EOD
+# Add user to sudo group
+usermod -aG sudo user
+
+cat <<EOF >>/etc/bash.bashrc
+
+l='ls --color=auto -lah'
+ls='ls --color=auto'
+ll='ls --color=auto -lh'
+la='ls --color=auto -lAh'
+alias cl='clear'
+alias ip='ip --color'
+alias bridge='bridge -color'
+alias free='free -h'
+alias df='df -h'
+alias du='du -hs'
+
+EOF
+
+cat <<EOF >> /etc/systemd/journald.conf
+SystemMaxUse=300M
+SystemKeepFree=1G
+EOF
+
+# install dnsproxy
+bash /install_dnsproxy.sh
+
+systemctl mask systemd-networkd-wait-online.service
+
+# Prevent the accidental shutdown by power button
+sed -i 's/^#HandlePowerKey=poweroff/HandlePowerKey=ignore/' /etc/systemd/logind.conf
+
+# Enable IPv4 and IPv6 forwarding by uncommenting the relevant lines in /etc/sysctl.conf
+sed -i -e 's/^#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' -e 's/^#net.ipv6.conf.all.forwarding=1/net.ipv6.conf.all.forwarding=1/' /etc/sysctl.conf

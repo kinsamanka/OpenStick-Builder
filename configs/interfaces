@@ -1,0 +1,35 @@
+# interfaces(5) file used by ifup(8) and ifdown(8)
+# Include files from /etc/network/interfaces.d:
+source /etc/network/interfaces.d/*
+
+auto lo
+iface lo inet loopback
+
+iface usb0 inet manual
+
+iface usb1 inet manual
+
+auto br0
+iface br0 inet static
+        address 192.168.100.1/24
+        bridge-ports usb0 usb1
+        bridge-stp off
+        bridge-vlan-aware yes
+        bridge-vids 1-10
+
+        # Enable NAT
+        up    iptables -t nat -A POSTROUTING -s 192.168.100.0/24 ! -d 192.168.100.0/24 -j MASQUERADE
+
+        # Prevent DNS leaks
+        up    iptables -t nat -A PREROUTING -i br0 -p udp --dport 53 -j REDIRECT --to-ports 53
+        up    iptables -t nat -A PREROUTING -i br0 -p tcp --dport 53 -j REDIRECT --to-ports 53
+
+iface br0 inet6 static
+        address dead:beef::1/64
+
+        # Enable NAT66
+        up    ip6tables -t nat -A POSTROUTING -s dead:beef::/64 ! -d dead:beef::/64 -j MASQUERADE
+
+        # Prevent DNS leaks
+        up    ip6tables -t nat -A PREROUTING -i br0 -p udp --dport 53 -j REDIRECT --to-ports 53
+        up    ip6tables -t nat -A PREROUTING -i br0 -p tcp --dport 53 -j REDIRECT --to-ports 53

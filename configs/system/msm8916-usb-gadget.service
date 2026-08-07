@@ -1,0 +1,16 @@
+[Unit]
+Description=MSM8916 USB Gadget Configuration
+After=network-pre.target systemd-modules-load.service sys-kernel-config.mount
+Before=network.target
+Wants=network.target
+Requires=sys-kernel-config.mount
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/sbin/msm8916-usb-gadget.sh start
+ExecStop=/usr/sbin/msm8916-usb-gadget.sh stop
+ExecReload=/usr/sbin/msm8916-usb-gadget.sh restart
+
+[Install]
+WantedBy=multi-user.target
