@@ -52,6 +52,16 @@ cp -a configs/system/* ${CHROOT}/etc/systemd/system
 
 cp -a scripts/msm-firmware-loader.sh ${CHROOT}/usr/sbin
 
+# ignore the board button (KEY_RESTART) so a press does not reboot/poweroff
+# the device; on some boards (e.g. UF02) the same button is also used to
+# enter EDL at power-up, so accidental presses are common
+mkdir -p ${CHROOT}/etc/systemd/logind.conf.d
+cat << EOF > ${CHROOT}/etc/systemd/logind.conf.d/10-ignore-button.conf
+[Login]
+HandleRebootKey=ignore
+HandleRebootKeyLongPress=ignore
+EOF
+
 # setup NetworkManager
 cp configs/*.nmconnection ${CHROOT}/etc/NetworkManager/system-connections
 chmod 0600 ${CHROOT}/etc/NetworkManager/system-connections/*

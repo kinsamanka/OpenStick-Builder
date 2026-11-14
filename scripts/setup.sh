@@ -34,6 +34,10 @@ apt install -qqy --no-install-recommends \
 apt clean
 rm -rf /var/lib/apt/lists/*
 
+# NetworkManager runs its own dnsmasq instances (dns=dnsmasq / method=shared);
+# the standalone service conflicts with them on port 53
+systemctl disable dnsmasq
+
 passwd -d root
 
 echo user:1::::/home/user:/bin/bash | newusers
