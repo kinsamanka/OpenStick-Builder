@@ -17,7 +17,7 @@ apt install -qqy --no-install-recommends \
     dnsmasq \
     hostapd \
     iptables \
-    libconfig9 \
+    libconfig11 \
     locales \
     modemmanager \
     netcat-traditional \
@@ -33,6 +33,10 @@ apt install -qqy --no-install-recommends \
     wpasupplicant
 apt clean
 rm -rf /var/lib/apt/lists/*
+
+# NetworkManager runs its own dnsmasq instances (dns=dnsmasq / method=shared);
+# the standalone service conflicts with them on port 53
+systemctl disable dnsmasq
 
 passwd -d root
 

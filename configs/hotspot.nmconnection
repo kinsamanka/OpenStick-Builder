@@ -6,6 +6,8 @@ interface-name=wlan0
 
 [wifi]
 band=bg
+channel=6
+cloned-mac-address=permanent
 mode=ap
 ssid=Openstick
 
@@ -13,6 +15,7 @@ ssid=Openstick
 group=ccmp;
 key-mgmt=wpa-psk
 pairwise=ccmp;
+pmf=1
 proto=rsn;
 psk=openstick
 

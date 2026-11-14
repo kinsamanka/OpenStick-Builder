@@ -19,6 +19,15 @@ deb http://deb.debian.org/debian-security/ ${RELEASE}-security main contrib non-
 deb http://deb.debian.org/debian ${RELEASE}-updates main contrib non-free-firmware
 EOF
 
+# always unmount, even if setup.sh fails (otherwise a later rm -rf rootfs
+# would traverse the bind-mounted /dev)
+umount_all() {
+    for a in dev/pts dev run sys proc; do
+        umount -l ${CHROOT}/${a} 2>/dev/null || true
+    done
+}
+trap umount_all EXIT
+
 mount -t proc proc ${CHROOT}/proc/
 mount -t sysfs sys ${CHROOT}/sys/
 mount -o bind /dev/ ${CHROOT}/dev/
@@ -29,9 +38,8 @@ cp scripts/setup.sh ${CHROOT}
 chroot ${CHROOT} qemu-aarch64-static /bin/sh -c /setup.sh
 
 # cleanup
-for a in proc sys dev/pts dev run; do
-    umount ${CHROOT}/${a}
-done;
+umount_all
+trap - EXIT
 
 rm -f ${CHROOT}/setup.sh
 echo -n > ${CHROOT}/root/.bash_history
@@ -43,6 +51,16 @@ sed -i "/localhost/ s/$/ ${HOST_NAME}/" ${CHROOT}/etc/hosts
 cp -a configs/system/* ${CHROOT}/etc/systemd/system
 
 cp -a scripts/msm-firmware-loader.sh ${CHROOT}/usr/sbin
+
+# ignore the board button (KEY_RESTART) so a press does not reboot/poweroff
+# the device; on some boards (e.g. UF02) the same button is also used to
+# enter EDL at power-up, so accidental presses are common
+mkdir -p ${CHROOT}/etc/systemd/logind.conf.d
+cat << EOF > ${CHROOT}/etc/systemd/logind.conf.d/10-ignore-button.conf
+[Login]
+HandleRebootKey=ignore
+HandleRebootKeyLongPress=ignore
+EOF
 
 # setup NetworkManager
 cp configs/*.nmconnection ${CHROOT}/etc/NetworkManager/system-connections
