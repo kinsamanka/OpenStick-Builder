@@ -129,7 +129,7 @@ cp configs/extlinux.conf ${CHROOT}/boot/extlinux
 cp dtbs/* ${CHROOT}/boot/dtbs/qcom
 
 # update fstab
-echo "/dev/mmcblk0p14\t/boot\text2\tdefaults\t0 2" >> ${CHROOT}/etc/fstab
+echo "/dev/mmcblk0p13\t/boot\text2\tdefaults\t0 2" >> ${CHROOT}/etc/fstab
 
 # copy gadget-tool templates and script
 cp -a configs/templates ${CHROOT}/etc/gt
