@@ -1,0 +1,32 @@
+From 8c92a34a8d40d2d1954f0169c805a677610cab80 Mon Sep 17 00:00:00 2001
+From: GP Orcullo <kinsamanka@gmail.com>
+Date: Thu, 26 Nov 2026 10:08:52 +0800
+Subject: [PATCH 2/2] Disable HOME key
+
+On JZ02v30 boards, the Home key is inverted, so the boards always
+boot into recovery mode on startup.
+---
+ lk2nd/device/dts/msm8916/msm8916-512mb-mtp.dts | 8 --------
+ 1 file changed, 8 deletions(-)
+
+diff --git a/lk2nd/device/dts/msm8916/msm8916-512mb-mtp.dts b/lk2nd/device/dts/msm8916/msm8916-512mb-mtp.dts
+index 32a32868..963f75c1 100644
+--- a/lk2nd/device/dts/msm8916/msm8916-512mb-mtp.dts
++++ b/lk2nd/device/dts/msm8916/msm8916-512mb-mtp.dts
+@@ -87,13 +87,5 @@
+ 		lk2nd,match-cmdline = "* mdss_mdp.panel=1:dsi:0:qcom,mdss_dsi_jdi_1080p_video";
+ 
+ 		lk2nd,dtb-files = "msm8916-yiming-uz801v3";
+-
+-		gpio-keys {
+-			compatible = "gpio-keys";
+-			reset {
+-				lk2nd,code = <KEY_HOME>;
+-				gpios = <&tlmm 23 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+-			};
+-		};
+ 	};
+ };
+-- 
+2.47.3
+
