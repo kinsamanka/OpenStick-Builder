@@ -1,0 +1,19 @@
+[Unit]
+Description=Login shell on %I
+Requires=msm8916-usb-gadget.service
+After=msm8916-usb-gadget.service
+BindsTo=msm8916-usb-gadget.service
+
+[Service]
+ExecStart=-/sbin/agetty --autologin root -L %I 115200 vt100
+Restart=always
+RestartSec=0
+UtmpIdentifier=%I
+TTYPath=/dev/%I
+TTYReset=yes
+TTYVHangup=yes
+KillMode=process
+IgnoreSIGPIPE=no
+
+[Install]
+WantedBy=multi-user.target

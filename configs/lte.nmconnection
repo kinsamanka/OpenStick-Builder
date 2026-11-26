@@ -5,7 +5,7 @@ type=gsm
 interface-name=wwan0qmi0
 
 [gsm]
-apn=internet
+auto-config=true
 
 [ipv4]
 method=auto
@@ -15,3 +15,4 @@ addr-gen-mode=default
 method=auto
 
 [proxy]
+

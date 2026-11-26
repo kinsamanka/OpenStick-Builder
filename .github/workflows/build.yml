@@ -2,6 +2,9 @@ name: Build
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   build:
@@ -18,7 +21,7 @@ jobs:
       - name: Build hyp and aboot firmware
         run: sudo sh -e scripts/build_hyp_aboot.sh
 
-      - name: Extract MSM8916 firmware
+      - name: Extract firmware
         run: sudo sh -e scripts/extract_fw.sh
 
       - name: Create rootfs
@@ -35,3 +38,13 @@ jobs:
         with:
           name: openstick-debian
           path: files/*
+
+      - name: Create Release with gh CLI (alternative approach)
+        if: startsWith(github.ref, 'refs/tags/') && true
+        run: |
+          gh release create ${{ github.ref_name }} \
+            --title "Release ${{ github.ref_name }}" \
+            --notes "Automated release for ${{ github.ref_name }}" \
+            files/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

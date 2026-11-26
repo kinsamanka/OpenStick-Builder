@@ -1,24 +1,27 @@
 [connection]
 id=hotspot
-uuid=4e35e5da-f566-46e1-9d90-8bdc0adde58f
+uuid=f9ab6583-91df-496f-90a8-639bd3253a27
 type=wifi
+autoconnect=true
 interface-name=wlan0
+master=br0
+slave-type=bridge
 
 [wifi]
 band=bg
+channel=1
 mode=ap
-ssid=Openstick
+ssid=4G-UFI-XX
 
 [wifi-security]
 group=ccmp;
 key-mgmt=wpa-psk
 pairwise=ccmp;
 proto=rsn;
-psk=openstick
+psk=1234567890
 
 [ipv4]
-address1=192.168.4.1/24
-method=shared
+method=disabled
 
 [ipv6]
 addr-gen-mode=default

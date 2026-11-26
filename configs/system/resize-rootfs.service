@@ -1,0 +1,11 @@
+[Unit]
+Description=Resize rootfs on first boot
+ConditionFirstBoot=true
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/resize2fs /dev/disk/by-partlabel/rootfs
+RemainAfterExit=yes
+
+[Install]
+WantedBy=sysinit.target
