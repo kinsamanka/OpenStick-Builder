@@ -33,6 +33,7 @@ apk add \
     bridge-utils \
     chrony \
     dropbear \
+    dropbear-scp \
     dbus \
     eudev \
     gadget-tool \
