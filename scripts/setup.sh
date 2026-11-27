@@ -14,7 +14,7 @@ apt upgrade -qqy
 apt autoremove -qqy
 apt install -qqy --no-install-recommends \
     bridge-utils \
-    dnsmasq \
+    dnsmasq-base \
     hostapd \
     iptables \
     libconfig9 \
